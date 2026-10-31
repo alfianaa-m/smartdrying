@@ -12,7 +12,7 @@
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
         }
-        /* Membalikkan orientasi horizontal video agar tidak mirror di layar */
+        /* Membalikkan orientasi horizontal video agar kamera tidak mirror */
         #webcam {
             transform: scaleX(-1) !important;
             -webkit-transform: scaleX(-1) !important;
@@ -52,73 +52,55 @@
                 </div>
             </div>
 
-            <!-- OVERLAY ESTIMASI AI (FULL MENUTUPI WADAH KAMERA) -->
-            <div id="overlay-estimasi" class="absolute inset-0 z-30 bg-white/95 backdrop-blur-md rounded-[26px] p-5 sm:p-8 flex flex-col justify-between hidden transition-all duration-300">
+            <!-- OVERLAY PREDIKSI AI (FULL MENUTUPI WADAH KAMERA) -->
+            <div id="overlay-estimasi" class="absolute inset-0 z-30 bg-[#F2F7FD]/95 backdrop-blur-md rounded-[26px] p-5 sm:p-7 flex flex-col justify-between hidden transition-all duration-300 border-2 border-[#88A9D0]/40">
                 
                 <!-- Header Overlay + Tombol Close X -->
-                <div class="flex justify-between items-start">
+                <div class="flex justify-between items-start space-x-3">
                     <div class="flex items-start space-x-3.5">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-[#0284C7] text-white rounded-2xl flex items-center justify-center text-xl shadow-md shrink-0">
-                            <i class="fa-solid fa-robot"></i>
+                        <!-- Icon Capsule Sparkle -->
+                        <div class="w-12 h-14 sm:w-14 sm:h-16 bg-gradient-to-b from-[#2B6CB0] to-[#1A365D] text-white rounded-2xl flex items-center justify-center text-xl shadow-md shrink-0">
+                            <i class="fa-solid fa-wand-magic-sparkles text-sky-200"></i>
                         </div>
                         <div>
-                            <h2 class="text-xl sm:text-2xl font-black text-[#041A3E] tracking-tight">Estimasi AI</h2>
-                            <p class="text-xs sm:text-sm text-slate-500 font-semibold leading-relaxed mt-0.5">
-                                Berdasarkan pola data saat ini, proses pengeringan berjalan dengan baik.
+                            <h2 class="text-xl sm:text-2xl font-black text-[#041A3E] tracking-tight">Prediksi AI</h2>
+                            <p class="text-xs sm:text-sm text-slate-600 font-semibold leading-snug mt-1 max-w-lg">
+                                Berdasarkan data sensor saat ini, sistem memprediksi tingkat kekeringan ikan asin selama proses pengeringan
                             </p>
                         </div>
                     </div>
-                    <button onclick="closeOverlay()" class="text-slate-400 hover:text-[#041A3E] text-2xl font-bold transition p-1 rounded-lg hover:bg-slate-100">
+                    <!-- Tombol Silang X -->
+                    <button onclick="closeOverlay()" class="text-[#041A3E] hover:opacity-70 text-2xl font-bold transition p-1 rounded-lg">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
 
-                <!-- Grid Indikator Hasil Scan AI -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 my-2 sm:my-4">
-                    <div class="bg-[#F0F4F9] border border-slate-200/80 rounded-2xl p-3.5 flex flex-col justify-between">
-                        <div class="flex items-center space-x-2 text-slate-500 mb-1">
-                            <i class="fa-regular fa-clock text-sm"></i>
-                            <span class="text-[11px] font-bold uppercase tracking-wider">Waktu tersisa</span>
+                <!-- Cards Section -->
+                <div class="space-y-3.5 my-auto py-2">
+                    
+                    <!-- Card 1: Status Prediksi -->
+                    <div class="bg-white border-2 border-[#041A3E] rounded-[24px] p-3.5 sm:p-4 flex items-center space-x-4 shadow-sm">
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#7C99D3] text-[#041A3E] flex items-center justify-center text-xl sm:text-2xl shrink-0">
+                            <i class="fa-solid fa-fish"></i>
                         </div>
-                        <p id="res-waktu" class="text-lg sm:text-xl font-black text-[#041A3E]">± 2 jam</p>
-                    </div>
-
-                    <div class="bg-[#F0F4F9] border border-slate-200/80 rounded-2xl p-3.5 flex flex-col justify-between">
-                        <div class="flex items-center space-x-2 text-slate-500 mb-1">
-                            <i class="fa-solid fa-chart-line text-sm text-sky-600"></i>
-                            <span class="text-[11px] font-bold uppercase tracking-wider">Perkiraan hasil</span>
+                        <div class="border-l-2 border-slate-200 pl-4 flex-1">
+                            <p class="text-[10px] sm:text-[11px] font-black text-[#041A3E] tracking-wider uppercase">STATUS PREDIKSI</p>
+                            <h3 id="res-status" class="text-lg sm:text-xl font-black text-[#041A3E] leading-tight">Setengah Kering</h3>
+                            <p id="res-subtext" class="text-xs text-slate-600 font-semibold">Proses pengeringan masih berlangsung</p>
                         </div>
-                        <p id="res-progres" class="text-lg sm:text-xl font-black text-[#041A3E]">± 85%</p>
                     </div>
 
-                    <div class="bg-[#F0F4F9] border border-slate-200/80 rounded-2xl p-3.5 flex flex-col justify-between">
-                        <div class="flex items-center space-x-2 text-slate-500 mb-1">
-                            <i class="fa-solid fa-temperature-half text-sm text-amber-500"></i>
-                            <span class="text-[11px] font-bold uppercase tracking-wider">Tren suhu</span>
+                    <!-- Card 2: Waktu Pengeringan -->
+                    <div class="bg-white border-2 border-[#041A3E] rounded-[24px] p-3.5 sm:p-4 flex items-center space-x-4 shadow-sm">
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#7C99D3] text-[#041A3E] flex items-center justify-center text-xl sm:text-2xl shrink-0">
+                            <i class="fa-regular fa-clock"></i>
                         </div>
-                        <p id="res-suhu" class="text-lg sm:text-xl font-black text-[#041A3E]">Stabil</p>
-                    </div>
-
-                    <div class="bg-[#F0F4F9] border border-slate-200/80 rounded-2xl p-3.5 flex flex-col justify-between">
-                        <div class="flex items-center space-x-2 text-slate-500 mb-1">
-                            <i class="fa-solid fa-droplet text-sm text-blue-500"></i>
-                            <span class="text-[11px] font-bold uppercase tracking-wider">Tren kelembapan</span>
+                        <div class="border-l-2 border-slate-200 pl-4 flex-1">
+                            <p class="text-[10px] sm:text-[11px] font-black text-[#041A3E] tracking-wider uppercase">WAKTU PENGERINGAN</p>
+                            <h3 id="res-waktu" class="text-xl sm:text-2xl font-black text-[#041A3E] leading-tight">30 Menit</h3>
                         </div>
-                        <p id="res-kelembapan" class="text-lg sm:text-xl font-black text-[#041A3E]">Tinggi</p>
-                    </div>
-                </div>
-
-                <!-- Progress Bar & Tombol Aksi Single (Detail Grafik) -->
-                <div class="space-y-3">
-                    <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden border border-slate-200 relative">
-                        <div id="res-bar" class="bg-[#041A3E] h-full rounded-full transition-all duration-500" style="width: 85%"></div>
                     </div>
 
-                    <div class="pt-1">
-                        <a href="/grafik" class="block w-full bg-[#041A3E] hover:bg-blue-900 text-white font-bold text-xs sm:text-sm py-3 rounded-xl text-center transition shadow">
-                            <i class="fa-solid fa-chart-line mr-1.5"></i> Detail Grafik
-                        </a>
-                    </div>
                 </div>
 
             </div>
@@ -197,17 +179,26 @@
                 if (response.ok) {
                     const data = await response.json();
                     if (data) {
-                        let kelembapan = data.kelembapan ?? 80;
-                        let estimasiMenit = Math.max(15, Math.round((kelembapan / 100) * 180));
-                        let jam = (estimasiMenit / 60).toFixed(1);
+                        let kelembapan = data.kelembapan ?? 60;
+                        let sisaMenit = Math.max(10, Math.round((kelembapan / 100) * 60));
 
-                        document.getElementById('res-waktu').innerText = `± ${jam} jam`;
-                        document.getElementById('res-progres').innerText = `± ${Math.round(100 - (kelembapan * 0.8))}%`;
-                        document.getElementById('res-bar').style.width = `${Math.round(100 - (kelembapan * 0.8))}%`;
+                        if (kelembapan > 70) {
+                            document.getElementById('res-status').innerText = 'Basah';
+                            document.getElementById('res-subtext').innerText = 'Proses pengeringan baru dimulai';
+                            document.getElementById('res-waktu').innerText = `${sisaMenit + 30} Menit`;
+                        } else if (kelembapan >= 40) {
+                            document.getElementById('res-status').innerText = 'Setengah Kering';
+                            document.getElementById('res-subtext').innerText = 'Proses pengeringan masih berlangsung';
+                            document.getElementById('res-waktu').innerText = `${sisaMenit} Menit`;
+                        } else {
+                            document.getElementById('res-status').innerText = 'Kering Sempurna';
+                            document.getElementById('res-subtext').innerText = 'Proses pengeringan telah selesai';
+                            document.getElementById('res-waktu').innerText = '0 Menit (Selesai)';
+                        }
                     }
                 }
             } catch (e) {
-                console.warn('Gagal ambil data API sensor:', e);
+                console.warn('Gagal mengambil data sensor:', e);
             }
 
             overlay.classList.remove('hidden');
