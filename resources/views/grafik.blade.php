@@ -219,23 +219,42 @@
             }
         });
 
-        // Handler Filter Waktu
+        // Handler Filter Waktu Utama (Semua Tombol 1Jam - 24Jam Aktif)
         function updateMainChart(timeRange) {
+            // Reset semua tombol ke tampilan non-aktif
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.className = "filter-btn flex-1 py-1.5 rounded-full text-[#041A3E] font-bold text-xs hover:bg-slate-100 transition";
             });
 
+            const activeClass = "filter-btn flex-1 py-1.5 rounded-full bg-[#041A3E] text-white font-extrabold text-xs shadow transition";
+
             if (timeRange === '1Jam') {
-                document.getElementById('btn-1jam').className = "filter-btn flex-1 py-1.5 rounded-full bg-[#041A3E] text-white font-extrabold text-xs shadow transition";
+                document.getElementById('btn-1jam').className = activeClass;
                 tempHumidityChart.data.labels = ['12:40', '12:50', '13:00', '13:10', '13:20', '13:30'];
                 tempHumidityChart.data.datasets[0].data = [85, 82, 80, 78, 78, 78];
                 tempHumidityChart.data.datasets[1].data = [35, 38, 41, 43, 45, 45];
             } else if (timeRange === '3Jam') {
-                document.getElementById('btn-3jam').className = "filter-btn flex-1 py-1.5 rounded-full bg-[#041A3E] text-white font-extrabold text-xs shadow transition";
+                document.getElementById('btn-3jam').className = activeClass;
                 tempHumidityChart.data.labels = ['10:30', '11:00', '11:30', '12:00', '12:30', '13:30'];
                 tempHumidityChart.data.datasets[0].data = [90, 88, 83, 80, 79, 78];
                 tempHumidityChart.data.datasets[1].data = [30, 32, 36, 40, 43, 45];
+            } else if (timeRange === '6Jam') {
+                document.getElementById('btn-6jam').className = activeClass;
+                tempHumidityChart.data.labels = ['07:30', '08:30', '09:30', '10:30', '11:30', '12:30'];
+                tempHumidityChart.data.datasets[0].data = [92, 90, 86, 82, 79, 78];
+                tempHumidityChart.data.datasets[1].data = [28, 31, 35, 39, 42, 45];
+            } else if (timeRange === '12Jam') {
+                document.getElementById('btn-12jam').className = activeClass;
+                tempHumidityChart.data.labels = ['01:30', '03:30', '05:30', '07:30', '09:30', '11:30'];
+                tempHumidityChart.data.datasets[0].data = [96, 95, 93, 89, 83, 78];
+                tempHumidityChart.data.datasets[1].data = [26, 26, 27, 32, 38, 45];
+            } else if (timeRange === '24Jam') {
+                document.getElementById('btn-24jam').className = activeClass;
+                tempHumidityChart.data.labels = ['Kemarin', '18:00', '22:00', '02:00', '06:00', '10:00', 'Hari Ini'];
+                tempHumidityChart.data.datasets[0].data = [98, 96, 94, 91, 85, 80, 78];
+                tempHumidityChart.data.datasets[1].data = [25, 27, 28, 30, 37, 42, 45];
             }
+            
             tempHumidityChart.update();
         }
     </script>

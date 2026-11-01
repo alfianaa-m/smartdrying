@@ -17,8 +17,9 @@
     <!-- Header Dashboard -->
     <header class="pt-8 pb-4 text-center z-10">
         <h1 class="text-2xl md:text-3xl font-black text-[#041A3E] tracking-tight">SMART DRY</h1>
-        <p class="text-xs md:text-sm text-[#386292] font-semibold mt-1 tracking-wide">
-            Update Time: 13:30:00 12/10/2026
+        <!-- Teks Jam Real-Time -->
+        <p id="update-time" class="text-xs md:text-sm text-[#386292] font-semibold mt-1 tracking-wide">
+            Update Time: --:--:-- --/--/----
         </p>
     </header>
 
@@ -121,8 +122,27 @@
         </div>
     </footer>
 
-    <!-- Logic Switch Mode & Toggle Aktuator -->
+    <!-- Logic Real-time Clock, Switch Mode & Toggle Aktuator -->
     <script>
+        // 1. Fungsi Real-Time Clock (Update Waktu Setiap Detik)
+        function updateRealtimeClock() {
+            const now = new Date();
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+
+            document.getElementById('update-time').innerText = `Update Time: ${hours}:${minutes}:${seconds} ${day}/${month}/${year}`;
+        }
+
+        setInterval(updateRealtimeClock, 1000);
+        document.addEventListener('DOMContentLoaded', updateRealtimeClock);
+
+        // 2. Logic Switch Mode & Aktuator
         let isPemanasOn = false;
         let isExhausOn = false;
 
@@ -132,18 +152,12 @@
             const manualControls = document.getElementById('manual-controls');
 
             if (mode === 'manual') {
-                // Style tombol Manual aktif
                 btnManual.className = "flex-1 py-4 rounded-[22px] bg-[#041A3E] text-white font-black text-xl tracking-wide shadow transition duration-300";
                 btnOtomatis.className = "flex-1 py-4 rounded-[22px] text-[#041A3E] font-black text-xl tracking-wide hover:bg-slate-100 transition duration-300";
-                
-                // Tampilkan tombol Pemanas & Exhaus
                 manualControls.classList.remove('hidden');
             } else {
-                // Style tombol Otomatis aktif
                 btnOtomatis.className = "flex-1 py-4 rounded-[22px] bg-[#041A3E] text-white font-black text-xl tracking-wide shadow transition duration-300";
                 btnManual.className = "flex-1 py-4 rounded-[22px] text-[#041A3E] font-black text-xl tracking-wide hover:bg-slate-100 transition duration-300";
-                
-                // Sembunyikan tombol Pemanas & Exhaus
                 manualControls.classList.add('hidden');
             }
         }
@@ -174,4 +188,4 @@
     </script>
 
 </body>
-</html> 
+</html>
