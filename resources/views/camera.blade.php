@@ -115,7 +115,7 @@
             <a href="/dashboard" class="flex flex-col items-center py-1 text-slate-400 hover:text-white transition">
                 <i class="fa-solid fa-house text-2xl"></i>
             </a>
-            <a href="/kamera" class="relative flex flex-col items-center py-1 group">
+            <a href="/camera" class="relative flex flex-col items-center py-1 group">
                 <div class="absolute -top-3.5 w-10 h-1 bg-white/80 rounded-full"></div>
                 <i class="fa-solid fa-camera text-2xl text-white"></i>
             </a>
